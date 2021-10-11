@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import { ShoppingCartOutlined } from '@material-ui/icons';
+import { BrowserRouter, Link , Router, Route, Switch} from 'react-router-dom';
+import RegisterPage from '../pages/RegisterPage';
+import LoginPage from '../pages/LoginPage';
 
 const Container = styled.div`
     height: 60px;
@@ -48,8 +51,12 @@ const NavigationBar = () => {
                     <Logo>CLEANBEAUTY.</Logo>
                 </Center>
                 <Right>
-                   <MenuItem>Register</MenuItem> 
-                   <MenuItem>Sign In</MenuItem>
+                    <Link to={"/pages/RegisterPage"}>
+                         <MenuItem>Register</MenuItem>
+                    </Link>
+                    <Link to={"/pages/LoginPage"}>  
+                        <MenuItem>Sign In</MenuItem>
+                    </Link>
                    <MenuItem>Products</MenuItem>
                    <MenuItem>
                         <ShoppingCartOutlined/>
