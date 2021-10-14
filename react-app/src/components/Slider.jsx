@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 const Container = styled.div`
     width: 100%
-    height: 100vh;
+    height: 80vh;
     display: flex
     position: relative;
     overflow: hidden;
@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 `
 const Slide = styled.div`
     min-width: 100%;
-    height: 100vh;
+    height: 110vh;
     display: flex;
     align-items: center;
 `

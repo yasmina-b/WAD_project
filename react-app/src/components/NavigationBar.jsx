@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
 import { ShoppingCartOutlined } from '@material-ui/icons';
+<<<<<<< Updated upstream
+=======
+import { Link } from 'react-router-dom';
+>>>>>>> Stashed changes
 
 const Container = styled.div`
     height: 60px;
@@ -48,9 +52,18 @@ const NavigationBar = () => {
                     <Logo>CLEANBEAUTY.</Logo>
                 </Center>
                 <Right>
+<<<<<<< Updated upstream
                    <MenuItem>Register</MenuItem> 
                    <MenuItem>Sign In</MenuItem>
                    <MenuItem>Products</MenuItem>
+=======
+                    <Link to={"/pages/RegisterPage"}>
+                         <MenuItem>Register</MenuItem>
+                    </Link>
+                    <Link to={"/pages/LoginPage"}>  
+                        <MenuItem>Sign In</MenuItem>
+                    </Link>
+>>>>>>> Stashed changes
                    <MenuItem>
                         <ShoppingCartOutlined/>
                    </MenuItem>
