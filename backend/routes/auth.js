@@ -5,9 +5,13 @@ const jwt = require("jsonwebtoken");
 
 //REGISTER
 router.post("/register", async (req,res) =>{
+    if(req.body.password !== req.body.confirmPassword){
+        return res.status(401).json({error: 'Passwords must match'});
+    }
+
     const newUser = new User({
         name: req.body.name,
-        lastName: req.body.lastName,
+        lastName: req.body.lastname,
         username: req.body.username,
         email: req.body.email,
         password: CryptoJS.AES.encrypt(
@@ -57,6 +61,13 @@ router.post("/login", async (req,res)=>{
 
         const {password, ...others} = user._doc;
         
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'lax',
+            maxAge: 3600*24*30,
+            path: '/'
+        })
         res.status(200).json({...others, accessToken});
 
     }catch (err) {

@@ -1,3 +1,6 @@
+import {useState} from 'react'
+import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -50,22 +53,48 @@ const Button = styled.button`
     margin: auto;
 `
 function RegisterPage() {
+    const history = useHistory();
+
+    const [name, setName] = useState('')
+    const [lastname, setLastname] = useState('')
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        const res = await axios.post('/register', {
+                        name,
+                        lastname,
+                        username,
+                        email,
+                        password,
+                        confirmPassword
+                    })
+
+        if(res.status === 201){
+            history.push('/pages/LoginPage')
+        }
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT.</Title>
                 <Form>
-                    <Input placeholder="name" />
-                    <Input placeholder="last name" />
-                    <Input placeholder="username" />
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Input placeholder="confirm password" />
+                    <Input placeholder="name" value={name} onChange={(e) => setName(e.target.value)}/>
+                    <Input placeholder="last name" value={lastname} onChange={(e) => setLastname(e.target.value)}/>
+                    <Input placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <Input placeholder="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <Input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <Input placeholder="confirm password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                     <Agreement>
                          By creating an account, I consent to the processing of my personal
                              data in accordance with the <b>PRIVACY POLICY</b>
                      </Agreement>
-                    <Button>REGISTER NOW</Button>
+                    <Button onClick={(e) => handleRegister(e)}>REGISTER NOW</Button>
                 </Form>
             </Wrapper>
             
