@@ -1,3 +1,6 @@
+import {useState} from 'react'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -59,14 +62,32 @@ const Redirect = styled.a`
 `;
 
 function LoginPage() {
+    const history = useHistory();
+
+    const [username,setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        const res = await axios.post('/login',{
+            username,
+            password
+        })
+
+        if(res.status === 200){
+            history.push('/')
+        }
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Title>SIGN IN.</Title>
                 <Form>
-                    <Input placeholder="username" />
-                    <Input placeholder="password" />
-                    <Button>LOGIN</Button>
+                    <Input placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <Input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <Button onClick={(e) => handleLogin(e)}>LOGIN</Button>
                     <Link to={"/pages/RegisterPage"}>
                         <Redirect>Don't have an account yet? Join our CLEANBEAUTY. community</Redirect>
                         </Link>

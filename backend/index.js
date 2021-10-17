@@ -1,9 +1,10 @@
 const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
+const cors = require("cors");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const app = express();
 const userRoute = require("./routes/user");
-const { application } = require("express");
 const authRoute = require("./routes/auth");
 
 dotenv.config();
@@ -15,8 +16,17 @@ mongoose.connect(
     console.log(err);
 });
 
+app.use(
+    cors({
+        credentials: true,
+        origin: true,
+        optionsSuccessStatus: 200,
+    })
+);
 app.use(express.json());
-app.use("/api/auth",authRoute);
+app.use(cookieParser());
+
+app.use("/api",authRoute);
 app.use("/api/users", userRoute);
 
 app.listen(5000, ()=>{
