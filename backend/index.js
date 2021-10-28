@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
+const productRoute = require("./routes/product");
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(cookieParser());
 
 app.use("/api",authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/products",productRoute);
 
 app.listen(5000, ()=>{
     console.log("Backend server is running");
