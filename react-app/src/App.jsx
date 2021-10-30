@@ -4,6 +4,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Pages } from "@material-ui/icons";
 import axios from 'axios'
+import ProductsPage from "./pages/ProductsPage";
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 axios.defaults.withCredentials = true
@@ -20,6 +21,9 @@ const App = () => {
             </Route>
           <Route exact path='/pages/LoginPage' component={'/pages/LoginPage'}>
             <LoginPage/>
+          </Route>
+          <Route exact path='/pages/ProductsPage' component={'/pages/ProductsPage'}>
+            <ProductsPage/>
           </Route>
         </Switch>
       </BrowserRouter>
