@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ArrowLeftOutlined, ArrowRightOutlined, Description } from '@material-ui/icons';
 import {sliderItems} from "../data";
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     width: 100%
@@ -72,7 +73,11 @@ const Desc = styled.p`
 const Button = styled.button`
     padding: 10px;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
+    text-align: center;
     cursor: pointer;
     width: 300px;
     margin: auto;
@@ -106,7 +111,9 @@ const Slider = () => {
                         <InfoContainer>
                             <Title>{item.title}</Title>
                             <Desc>{item.desc}</Desc>
-                            <Button>DISCOVER MORE</Button>
+                            <Link to={"/pages/ProductsPage"}>
+                                <Button>DISCOVER MORE</Button>
+                            </Link>
                         </InfoContainer>
                     </Slide>  
                 ))}
