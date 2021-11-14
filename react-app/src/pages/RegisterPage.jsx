@@ -97,7 +97,6 @@ function RegisterPage() {
                     <Button onClick={(e) => handleRegister(e)}>REGISTER NOW</Button>
                 </Form>
             </Wrapper>
-            
         </Container>
     )
 }

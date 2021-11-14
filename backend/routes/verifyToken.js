@@ -1,17 +1,19 @@
 const jwt = require("jsonwebtoken");
 
-const verifyToken = (req, res, next)=>{
-    const authHeader = req.headers.token
-    if(authHeader){
-        const token = authHeader.split(" ")[1];
-        jwt.verify(token, process.env.JWT_SEC, (err, user)=>{
-            if(err) res.status(403).json("Token is not valid!");
-            req.user = user;
-            next();
-        } )
+const verifyToken = async (req, res, next)=>{
+    const token = req.cookies.accessToken;
 
-    }else{
-        return res.status(401).json("You are not authenticated");
+    try{    
+        const decodedToken = await jwt.verify(token, process.env.JWT_SEC);
+
+        if(!decodedToken){
+            return res.status(401).json("You are not authenticated")
+        }
+
+        req.user = decodedToken;
+        next();
+    }catch(err){
+        return res.status(401).json("You are not authenticated")
     }
 };
 
