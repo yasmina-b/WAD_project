@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Products from '../components/Products';
 import Footer from '../components/Footer';
 import ProductsIntro from '../components/ProductsIntro';
+import {useAuthState} from '../context/AuthContext'
 
 const Title = styled.div`
     text-align: left;
@@ -17,6 +18,9 @@ const Title = styled.div`
 `
 
 function ProductsPage() {
+    const ctx = useAuthState();
+    console.log(ctx);
+
     return (
         <div>
             <NavigationBar/>

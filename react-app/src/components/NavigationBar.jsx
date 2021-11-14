@@ -49,6 +49,7 @@ const NavigationBar = () => {
                     <Logo>CLEANBEAUTY.</Logo>
                 </Center>
                 <Right>
+                    <Link to="/admin"><MenuItem>Admin</MenuItem></Link>
                     <Link to={"/pages/RegisterPage"}>
                          <MenuItem>Register</MenuItem>
                     </Link>

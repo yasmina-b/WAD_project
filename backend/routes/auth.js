@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const { verifyTokenAndAuthorization } = require("./verifyToken");
 
 //REGISTER
 router.post("/register", async (req,res) =>{
@@ -75,5 +76,13 @@ router.post("/login", async (req,res)=>{
     }
 
 });
+
+router.get("/me", verifyTokenAndAuthorization, async (req,res) => {
+    if(req.user){
+        return res.status(200).json({user: req.user});
+    }
+
+    return res.status(401).json({error: 'Unauthorized'})
+})
 
 module.exports = router;
