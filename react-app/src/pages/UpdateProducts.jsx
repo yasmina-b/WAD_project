@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import Product from '../components/Product'
 
 const Container = styled.div`
     width: 100vw;
@@ -48,15 +48,21 @@ const ProductDescription = styled.p`
     margin: 0;
     padding: 0;
 `
-
-const ProductImage = styled.img`
-    max-width: 165px;
-    max-height: 165px;
+const Button =styled.button`
+    border: none;
+    padding: 15px 15px;
+    background-color: #aec999;
+    color: black;
+    cursor: pointer;
+    text-align: center; 
+    font-weight: bold; 
+    margin: auto;   
 `
 
 const ProductPrice = styled.small``
 
-const Admin = () => {
+const UpdateProducts = () => {
+    const history = useHistory();
     const [products, setProducts] = useState([]);
 
     const getAllProducts = async () => {
@@ -67,7 +73,6 @@ const Admin = () => {
             console.error(err)
         }
     }
-
     useEffect(() => {
         getAllProducts()    
     }, [])
@@ -91,7 +96,10 @@ const Admin = () => {
                             <ProductPrice>
                                 Quantity:  {product.quantity}
                             </ProductPrice>
-                            <ProductImage src={product.image || ""}/>
+                            <Button style={{marginTop: '0px'}} onClick={() =>
+                                history.push(`/admin/update/${product._id}`)}>
+                                Update Product
+                            </Button>
                         </ListItem>
                     ))}
                 </List>
@@ -100,4 +108,4 @@ const Admin = () => {
     )
 }
 
-export default Admin;
+export default UpdateProducts;

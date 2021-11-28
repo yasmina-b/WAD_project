@@ -59,14 +59,15 @@ const CreateProduct = () => {
     const [desc, setDesc] = useState("")
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0)
+    const [image, setImage] = useState("");
 
     const submitProduct = async (e) => {
         e.preventDefault();
         try{
-            const {data} = await axios.post('/products', {
-                title, desc, quantity, price
+            await axios.post('/products', {
+                title, desc, quantity, price, image
             })
-            history.push('/admin')
+            history.push('/admin/list-of-products')
         }catch(err){
             console.error(err)
         }
@@ -88,6 +89,7 @@ const CreateProduct = () => {
                         }}>-</Button>{" "+quantity+" "} <Button onClick={(e) => {e.preventDefault(); setQuantity(prev => prev+1)}}>+</Button>
                     </div>
                     <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
+                    <Input value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image..."/>
 
                     <Button style={{marginTop: '24px'}} onClick={(e) => {
                         submitProduct(e);

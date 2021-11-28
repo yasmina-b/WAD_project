@@ -4,6 +4,7 @@ import {
     ShoppingCartOutlined,
   } from "@material-ui/icons";
   import styled from "styled-components";
+  import {useHistory} from 'react-router-dom'
   
   const Info = styled.div`
     opacity: 0;
@@ -58,14 +59,16 @@ import {
   `;
   
   const Product = ({ item }) => {
+    const history = useHistory();
+
     return (
       <Container>
-        <Image src={item.img} />
+        <Image src={item.image} />
         <Info>
           <Icon>
             <ShoppingCartOutlined />
           </Icon>
-          <Icon>
+          <Icon onClick={() => history.push(`/product/${item._id}`)}>
             <SearchOutlined />
           </Icon>
           <Icon>
