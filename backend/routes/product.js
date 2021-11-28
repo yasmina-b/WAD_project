@@ -6,11 +6,28 @@ const {
   } = require("./verifyToken");
 const router = require("express").Router();
 
+//GET ALL PRODUCTS
+router.get("/", async (req, res) => {
+  const qNew = req.query.new;
+  try {
+    let products;
+
+    if (qNew) {
+      products = await Product.find().sort({ createdAt: -1 }).limit(1);
+    } else {
+      products = await Product.find({});
+    }
+
+
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 //CREATE 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
     const newProduct = new Product(req.body);
-    console.log(newProduct);
   
     try {
       const savedProduct = await newProduct.save();
@@ -38,7 +55,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("Product has been deleted...");
@@ -52,24 +69,6 @@ router.get("/find/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     res.status(200).json(product);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//GET ALL PRODUCTS
-router.get("/", async (req, res) => {
-  const qNew = req.query.new;
-  try {
-    let products;
-
-    if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1);
-    } else {
-      products = await Product.find();
-    }
-
-    res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
   }

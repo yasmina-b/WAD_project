@@ -1,7 +1,6 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import Product from '../components/Product'
 
 const Container = styled.div`
     width: 100vw;
@@ -40,58 +39,58 @@ const ListItem = styled.li`
     flex-direction: column;
 `
 
-const ProductTitle = styled.h4`
+const Name = styled.h4`
     margin:0;
     padding:0;
 `
-const ProductDescription = styled.p`
-    margin: 0;
-    padding: 0;
+const LastName = styled.h4`
+    margin:0;
+    padding:0;
+`
+const UserName = styled.h4`
+    margin:0;
+    padding:0;
+`
+const Email = styled.h4`
+    margin:0;
+    padding:0;
 `
 
-const ProductImage = styled.img`
-    max-width: 165px;
-    max-height: 165px;
-`
+const Users = () => {
+    const [users, setUsers] = useState([]);
 
-const ProductPrice = styled.small``
-
-const Admin = () => {
-    const [products, setProducts] = useState([]);
-
-    const getAllProducts = async () => {
+    const getAllUsers = async () => {
         try{
-            const res = await axios.get('/products');
-            setProducts(res.data);
+            const res = await axios.get('/users');
+            setUsers(res.data);
         }catch(err){
             console.error(err)
         }
     }
 
     useEffect(() => {
-        getAllProducts()    
+        getAllUsers()    
     }, [])
 
     return (
         <Container>
             <Wrapper>
-                <Title>List of the products</Title>
+                <Title>Users of CLEANBEAUTY.</Title>
                 <List>
-                    {products && products.map((product) => (
+                    {users && users.map((user) => (
                         <ListItem>
-                            <ProductTitle>
-                                Name: {product.title}
-                            </ProductTitle>
-                            <ProductDescription>
-                                Description: {product.desc}
-                            </ProductDescription>
-                            <ProductPrice>
-                                Price:  {product.price}$
-                            </ProductPrice>
-                            <ProductPrice>
-                                Quantity:  {product.quantity}
-                            </ProductPrice>
-                            <ProductImage src={product.image || ""}/>
+                            <Name>
+                                Name: {user.name}
+                            </Name>
+                            <LastName>
+                                Last Name: {user.lastName}
+                            </LastName>
+                            <UserName>
+                                Username: {user.username}
+                            </UserName>
+                            <Email>
+                                Email: {user.email}
+                            </Email>
                         </ListItem>
                     ))}
                 </List>
@@ -100,4 +99,4 @@ const Admin = () => {
     )
 }
 
-export default Admin;
+export default Users;
