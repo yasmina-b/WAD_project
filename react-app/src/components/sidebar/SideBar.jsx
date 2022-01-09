@@ -3,7 +3,6 @@ import {
   PermIdentity,
   Storefront,
   AttachMoney,
-  BarChart,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -20,6 +19,12 @@ export default function Sidebar() {
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
                 Users
+              </li>
+            </Link>
+            <Link to="/admin/delete-users" className="link">
+              <li className="sidebarListItem">
+                <PermIdentity className="sidebarIcon" />
+                 Delete Users
               </li>
             </Link>
             <Link to="/admin/list-of-products" className="link">
@@ -46,12 +51,6 @@ export default function Sidebar() {
                  Update products
                  </li>
               </Link>
-              <Link to="/admin" className="link">
-                <li className="sidebarListItem">
-                    <AttachMoney className="sidebarIcon" />
-                 Orders
-            </li>
-            </Link>
           </ul>
         </div>
         </div>

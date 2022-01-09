@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import React from 'react';
 
 const Container = styled.div`
     width: 100vw;
@@ -64,6 +66,8 @@ const Redirect = styled.a`
 function LoginPage() {
     const history = useHistory();
 
+    const {setUser} = React.useContext(AuthContext);
+
     const [username,setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -74,6 +78,9 @@ function LoginPage() {
             username,
             password
         })
+
+        setUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
 
         if(res.status === 200){
             history.push('/')

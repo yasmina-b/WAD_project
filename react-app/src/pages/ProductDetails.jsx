@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import React from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import { Add, Remove } from "@material-ui/icons";
 import NavigationBar from '../components/NavigationBar'
 import Footer from '../components/Footer'
+import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext'
 
 const Container = styled.div``;
 
@@ -68,6 +70,7 @@ const Button = styled.button`
 const ProductDetails = () => {
     const {id} = useParams();
     const [product, setProduct] = useState({});
+    const {cart, customSetCart} = React.useContext(AuthContext);
 
     const getProductById = async () => {
         try {
@@ -83,8 +86,11 @@ const ProductDetails = () => {
         getProductById();
     },[])
 
-    if(!product) return <h1>Loading...</h1>
+    const handleAddProduct = (newProduct) => {
+      customSetCart([...cart, newProduct]);
+  };
 
+    if(!product) return <h1>Loading...</h1>
 
     return (
         <Container>
@@ -105,7 +111,9 @@ const ProductDetails = () => {
                     </Price>
                     <AddContainer>
                       <Div></Div>
-                        <Button>ADD TO CART</Button>
+                      <Link to={"pages/Cart"}>
+                        <Button onClick={() => handleAddProduct(product)}>ADD TO CART</Button>
+                        </Link>
                      </AddContainer>
                 </InfoContainer>
             </Wrapper>

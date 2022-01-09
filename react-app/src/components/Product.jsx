@@ -1,10 +1,11 @@
 import {
-    FavoriteBorderOutlined,
     SearchOutlined,
     ShoppingCartOutlined,
   } from "@material-ui/icons";
   import styled from "styled-components";
   import {useHistory} from 'react-router-dom'
+  import AuthContext from "../context/AuthContext";
+  import React from "react";
   
   const Info = styled.div`
     opacity: 0;
@@ -58,21 +59,23 @@ import {
     }
   `;
   
-  const Product = ({ item }) => {
+  const Product = ({ item}) => {
     const history = useHistory();
+    const {cart, customSetCart} = React.useContext(AuthContext);
+  
+    const handleAddProduct = (product) => {
+      customSetCart([...cart, product]);
+  };
 
     return (
       <Container>
         <Image src={item.image} />
         <Info>
-          <Icon>
-            <ShoppingCartOutlined />
+          <Icon onClick={() => handleAddProduct(item)}>
+            <ShoppingCartOutlined/>
           </Icon>
           <Icon onClick={() => history.push(`/product/${item._id}`)}>
             <SearchOutlined />
-          </Icon>
-          <Icon>
-            <FavoriteBorderOutlined />
           </Icon>
         </Info>
       </Container>
