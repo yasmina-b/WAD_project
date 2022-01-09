@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { ShoppingCartOutlined } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const Container = styled.div`
     height: 60px;
@@ -15,10 +16,6 @@ const Wrapper = styled.div`
 `
 const Left = styled.div`
     flex: 1;
-`
-const Language = styled.span`
-    font-size: 14px;
-    cursor: pointer;
 `
 const Center = styled.div`
     flex: 1;
@@ -40,23 +37,31 @@ const MenuItem = styled.div`
 
 `
 const NavigationBar = () => {
+    const {user} = React.useContext(AuthContext);
     return (
         <Container>
             <Wrapper>
                 <Left>
                 </Left>
                 <Center>
+                    <Link to='/' style={{color: 'black'}}>
                     <Logo>CLEANBEAUTY.</Logo>
+                    </Link>
                 </Center>
                 <Right>
-                    <Link to={"/pages/RegisterPage"}>
+                {user && user.isAdmin ? ( <Link to="../admin/dashboard" style={{ color: 'black'}}>
+                    <MenuItem>CleanBeauty Admin</MenuItem>
+                    </Link>) : ("")}
+                    <Link to="/pages/RegisterPage" style={{color: 'black'}}>
                          <MenuItem>Register</MenuItem>
                     </Link>
-                    <Link to={"/pages/LoginPage"}>  
+                    <Link to="/pages/LoginPage" style={{color: 'black'}}>  
                         <MenuItem>Sign In</MenuItem>
                     </Link>
                    <MenuItem>
-                        <ShoppingCartOutlined/>
+                        <Link to="/product/pages/Cart" style={{color: 'black'}}>
+                             <ShoppingCartOutlined/>
+                        </Link>
                    </MenuItem>
                 </Right>
             </Wrapper>

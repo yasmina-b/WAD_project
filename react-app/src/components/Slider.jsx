@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { ArrowLeftOutlined, ArrowRightOutlined, Description } from '@material-ui/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined} from '@material-ui/icons';
 import {sliderItems} from "../data";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`

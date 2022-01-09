@@ -40,13 +40,17 @@ const ListItem = styled.li`
     flex-direction: column;
 `
 
-const ProductTitle = styled.h4`
+const Name = styled.h4`
     margin:0;
     padding:0;
 `
-const ProductDescription = styled.p`
-    margin: 0;
-    padding: 0;
+const LastName = styled.h4`
+    margin:0;
+    padding:0;
+`
+const UserName = styled.h4`
+    margin:0;
+    padding:0;
 `
 const Button =styled.button`
     border: none;
@@ -59,46 +63,46 @@ const Button =styled.button`
     margin: auto;   
 `
 
-const ProductPrice = styled.small``
-
-const UpdateProducts = () => {
+const DeleteUsers = () => {
     const history = useHistory();
-    const [products, setProducts] = useState([]);
+    const [users, setUsers] = useState([]);
 
-    const getAllProducts = async () => {
+    const getAllUsers = async () => {
         try{
-            const res = await axios.get('/products');
-            setProducts(res.data);
+            const res = await axios.get('/users');
+            setUsers(res.data);
         }catch(err){
             console.error(err)
         }
     }
+
     useEffect(() => {
-        getAllProducts()    
+        getAllUsers()    
     }, [])
 
+    const deleteUser = (_id) => {
+        axios.delete(`http://localhost:5000/api/users/${_id}`);
+        history.push('/admin/users');
+    }
     return (
         <Container>
             <Wrapper>
-                <Title>List of the products</Title>
+                <Title>Users of CLEANBEAUTY.</Title>
                 <List>
-                    {products && products.map((product) => (
+                    {users && users.map((user) => (
                         <ListItem>
-                            <ProductTitle>
-                                Name: {product.title}
-                            </ProductTitle>
-                            <ProductDescription>
-                                Description: {product.desc}
-                            </ProductDescription>
-                            <ProductPrice>
-                                Price:  {product.price}$
-                            </ProductPrice>
-                            <ProductPrice>
-                                Quantity:  {product.quantity}
-                            </ProductPrice>
+                            <Name>
+                                Name: {user.name}
+                            </Name>
+                            <LastName>
+                                Last Name: {user.lastName}
+                            </LastName>
+                            <UserName>
+                                Username: {user.username}
+                            </UserName>
                             <Button style={{marginTop: '0px'}} onClick={() =>
-                                history.push(`/admin/update/${product._id}`)}>
-                                Update Product
+                                deleteUser(user._id)}>
+                                Delete user
                             </Button>
                         </ListItem>
                     ))}
@@ -108,4 +112,4 @@ const UpdateProducts = () => {
     )
 }
 
-export default UpdateProducts;
+export default DeleteUsers;
